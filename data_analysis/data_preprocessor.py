@@ -7,7 +7,7 @@ from nltk import TweetTokenizer
 from nltk.corpus import stopwords
 
 from data_analysis.groundtruth_processor import extract_gt_tokens, generate_gt_string
-from utils.file_utils import delete_create_folder
+from utils.file_utils import delete_create_folder, create_folder_if_not_exist
 
 en_stopwords = stopwords.words('english')
 
@@ -90,6 +90,9 @@ def preprocessing_flow(text):
 # pre-process the text contents in given input file and save to given output file
 # output_file_path format - [ID, timestamp, text] without column names
 def preprocess_bulk(input_file_path, output_file_path):
+    # create folder if not exists
+    create_folder_if_not_exist(output_file_path, is_file_path=True)
+
     input_file = open(input_file_path, encoding='utf-8')
     input_reader = csv.reader(input_file, delimiter='\t')
 
