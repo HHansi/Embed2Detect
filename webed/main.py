@@ -59,8 +59,11 @@ def webed(data_file_path, from_time, to_time, time_window_length, diff_threshold
 
     # get event words
     print('Extracting event words')
+    start_time = time.time()
     event_result_folder = os.path.join(results_folder_path, file_name)
     event_words = get_event_words(event_windows, event_result_folder)
+    end_time = time.time()
+    print('Extracted event words in ', int(end_time - start_time), ' seconds')
     print()
 
     end_time_full_process = time.time()
