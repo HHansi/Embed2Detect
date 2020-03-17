@@ -47,8 +47,8 @@ def filter_documents_by_time_bulk(from_time_str, to_time_str, time_duration, inp
     from_time = datetime.strptime(from_time_str, '%Y_%m_%d_%H_%M_%S')
     to_time = datetime.strptime(to_time_str, '%Y_%m_%d_%H_%M_%S')
 
-    to_time_temp = from_time  # init variable with some value less than to_time
-    while to_time_temp > to_time:
+    from_time_temp = from_time
+    while from_time_temp < to_time:
         to_time_temp = from_time_temp + timedelta(seconds=(60 * (time_duration - 1)) + 59)
         to_time_str = to_time_temp.strftime('%Y_%m_%d_%H_%M_%S')
 
