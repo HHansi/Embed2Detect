@@ -17,10 +17,6 @@ def get_event_words(event_windows, result_folder, n=None):
         diff_ut_matrix = event_window.diff_ut_matrix
         vocab = event_window.vocab
 
-        # sim_word_pairs = sort_matrix_values(vocab, np.asarray(diff_ut_matrix), descending=True,
-        #                                     non_zeros_only=True)
-        # word_pairs = np.array(sim_word_pairs)[:, 1]
-        # word_list = get_word_list_by_word_pairs(word_pairs)
         word_list = get_sorted_matrix_labels(vocab, np.asarray(diff_ut_matrix), descending=True,
                                              non_zeros_only=True)
 

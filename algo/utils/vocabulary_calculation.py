@@ -51,13 +51,5 @@ def filter_vocabulary_by_frequency(words, word_freq, frequency):
     return filtered_words
 
 
-# # get unique word list for given word pairs
-# # word_pairs - 2D array of word pairs [[w1,w2],[w3,w4]..]
-# def get_word_list_by_word_pairs(word_pairs):
-#     word_list = []
-#     for word_pair in word_pairs:
-#         word_list = word_list + list(set(word_pair) - set(word_list))
-#     return word_list
-
 
 
