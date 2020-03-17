@@ -36,7 +36,7 @@ def write_list_to_text_file(list, file_path):
 
 def read_list_from_text_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
-        data_list = f.readlines()
+        data_list = f.read().splitlines()
     return data_list
 
 
