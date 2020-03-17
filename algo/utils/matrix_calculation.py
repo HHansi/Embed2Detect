@@ -119,7 +119,7 @@ def get_sorted_matrix_labels(label_list, matrix, descending=False, file_path=Non
         # results.append([v, [label_list[r], label_list[c]]])
         # print(words[r], '&', words[c], ': ', v)
         sorted_labels.add(label_list[r])
-        sorted_labels.addlabel_list[c]
+        sorted_labels.add(label_list[c])
 
         # # row label
         # if label_list[r] not in sorted_labels:
