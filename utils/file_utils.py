@@ -18,7 +18,7 @@ def create_folder_if_not_exist(path, is_file_path=False):
 def delete_create_folder(path):
     if os.path.exists(path):
         shutil.rmtree(path)
-    os.mkdir(path)
+    os.makedirs(path)
 
 
 def add_file_extension(path, extension):
