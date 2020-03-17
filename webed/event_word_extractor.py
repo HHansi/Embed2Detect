@@ -22,7 +22,7 @@ def get_event_words(event_windows, result_folder, n=None):
         # word_pairs = np.array(sim_word_pairs)[:, 1]
         # word_list = get_word_list_by_word_pairs(word_pairs)
         word_list = get_sorted_matrix_labels(vocab, np.asarray(diff_ut_matrix), descending=True,
-                                             non_zeros_only=True, file_path='matrix.tsv')
+                                             non_zeros_only=True)
 
         if n:
             event_words = word_list[:n]
