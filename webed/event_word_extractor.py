@@ -3,9 +3,7 @@ import os
 
 import numpy as np
 
-from algo.utils.matrix_calculation import sort_matrix_values
-from algo.utils.vocabulary_calculation import get_word_list_by_word_pairs
-
+from algo.utils.matrix_calculation import get_sorted_matrix_labels
 from utils.file_utils import write_list_to_text_file, delete_create_folder
 
 
@@ -19,10 +17,12 @@ def get_event_words(event_windows, result_folder, n=None):
         diff_ut_matrix = event_window.diff_ut_matrix
         vocab = event_window.vocab
 
-        sim_word_pairs = sort_matrix_values(vocab, np.asarray(diff_ut_matrix), descending=True,
-                                            non_zeros_only=True)
-        word_pairs = np.array(sim_word_pairs)[:, 1]
-        word_list = get_word_list_by_word_pairs(word_pairs)
+        # sim_word_pairs = sort_matrix_values(vocab, np.asarray(diff_ut_matrix), descending=True,
+        #                                     non_zeros_only=True)
+        # word_pairs = np.array(sim_word_pairs)[:, 1]
+        # word_list = get_word_list_by_word_pairs(word_pairs)
+        word_list = get_sorted_matrix_labels(vocab, np.asarray(diff_ut_matrix), descending=True,
+                                             non_zeros_only=True, file_path='matrix.tsv')
 
         if n:
             event_words = word_list[:n]

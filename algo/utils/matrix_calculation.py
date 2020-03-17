@@ -86,3 +86,47 @@ def sort_matrix_values(label_list, matrix, descending=False, file_path=None, wor
 
     if file_path: result_file.close()
     return results
+
+
+# sort matrix values and get correspondingly ordered label list
+# file_path(optional) - .tsv file path to save sorted matrix with corresponding labels for analysis purpose
+def get_sorted_matrix_labels(label_list, matrix, descending=False, file_path=None, word_pair_limit=None,
+                            non_zeros_only=False):
+    sorted_labels = []
+    # sort matrix
+    if descending:
+        sorted = np.argsort(matrix, axis=None)[::-1]
+    else:
+        sorted = np.argsort(matrix, axis=None)
+    rows, cols = np.unravel_index(sorted, matrix.shape)
+    matrix_sorted = matrix[rows, cols]
+
+    # save data for analysis purpose
+    if file_path:
+        # create folder if not exist
+        create_folder_if_not_exist(file_path, is_file_path=True)
+        result_file = open(file_path, 'a', newline='', encoding='utf-8')
+        result_writer = csv.writer(result_file, delimiter='\t')
+
+    i = 0
+    for r, c, v in zip(rows, cols, matrix_sorted):
+        i = i + 1
+        if non_zeros_only and v == 0:
+            break
+        # results.append([v, [label_list[r], label_list[c]]])
+        # print(words[r], '&', words[c], ': ', v)
+
+        # row label
+        if label_list[r] not in sorted_labels:
+            sorted_labels.append(label_list[r])
+        # column label
+        if label_list[c] not in sorted_labels:
+            sorted_labels.append(label_list[c])
+
+        if file_path:
+            result_writer.writerow([v, label_list[r], label_list[c]])
+        if word_pair_limit and i == word_pair_limit:
+            break
+
+    if file_path: result_file.close()
+    return sorted_labels
