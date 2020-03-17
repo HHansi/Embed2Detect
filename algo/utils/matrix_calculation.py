@@ -3,6 +3,7 @@ import csv
 import os
 
 import numpy as np
+from orderedset import OrderedSet
 
 from utils.file_utils import create_folder_if_not_exist
 
@@ -92,7 +93,9 @@ def sort_matrix_values(label_list, matrix, descending=False, file_path=None, wor
 # file_path(optional) - .tsv file path to save sorted matrix with corresponding labels for analysis purpose
 def get_sorted_matrix_labels(label_list, matrix, descending=False, file_path=None, word_pair_limit=None,
                             non_zeros_only=False):
-    sorted_labels = []
+    # sorted_labels = []
+    sorted_labels = OrderedSet()
+
     # sort matrix
     if descending:
         sorted = np.argsort(matrix, axis=None)[::-1]
@@ -115,13 +118,15 @@ def get_sorted_matrix_labels(label_list, matrix, descending=False, file_path=Non
             break
         # results.append([v, [label_list[r], label_list[c]]])
         # print(words[r], '&', words[c], ': ', v)
+        sorted_labels.add(label_list[r])
+        sorted_labels.addlabel_list[c]
 
-        # row label
-        if label_list[r] not in sorted_labels:
-            sorted_labels.append(label_list[r])
-        # column label
-        if label_list[c] not in sorted_labels:
-            sorted_labels.append(label_list[c])
+        # # row label
+        # if label_list[r] not in sorted_labels:
+        #     sorted_labels.append(label_list[r])
+        # # column label
+        # if label_list[c] not in sorted_labels:
+        #     sorted_labels.append(label_list[c])
 
         if file_path:
             result_writer.writerow([v, label_list[r], label_list[c]])
@@ -129,4 +134,20 @@ def get_sorted_matrix_labels(label_list, matrix, descending=False, file_path=Non
             break
 
     if file_path: result_file.close()
-    return sorted_labels
+    return list(sorted_labels)
+
+
+if __name__ == '__main__':
+    sorted_labels = OrderedSet()
+    sorted_labels.add(1)
+    sorted_labels.add(2)
+    sorted_labels.add(3)
+    sorted_labels.add(2)
+    print(list(sorted_labels))
+
+    set1 = set()
+    set1.add(1)
+    set1.add(2)
+    set1.add(3)
+    set1.add(2)
+    print(list(set1))
