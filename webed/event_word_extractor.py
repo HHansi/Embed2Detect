@@ -14,6 +14,7 @@ def get_event_words(event_windows, result_folder, n=None):
 
     for event_window in event_windows:
         time_window = event_window.time_window
+        print('Extracting events words in ', time_window)
         diff_ut_matrix = event_window.diff_ut_matrix
         vocab = event_window.vocab
 
