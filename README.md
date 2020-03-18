@@ -1,4 +1,4 @@
-# WAb-ED
+# WEb-ED
 ## Word Embedding-based Event Detection for social media
 
 ## Input file format
