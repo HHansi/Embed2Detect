@@ -6,7 +6,7 @@ from data_analysis.data_preprocessor import preprocess_bulk
 from data_analysis.stat_generator import generate_stats
 from project_config import preprocessed_data_folder, resource_folder_path, data_window_folder, word_embedding_folder, \
     data_stats_folder, results_folder_path, preprocess, workers, aggregation_method, model_type, min_word_count, \
-    vector_size, window_size
+    vector_size, window_size, we_workers
 from utils.file_utils import get_file_name
 from webed.event_window_identifier import get_event_windows
 from webed.event_word_extractor import get_event_words
@@ -28,9 +28,10 @@ def webed(data_file_path, from_time, to_time, time_window_length, diff_threshold
     print('Separating data stream into chunks')
     start_time = time.time()
     data_chunk_folder_path = os.path.join(resource_folder_path, data_window_folder, file_name)
-    filter_documents_by_time_bulk(from_time, to_time, time_window_length, preprocessed_data_path, data_chunk_folder_path)
+    filter_documents_by_time_bulk(from_time, to_time, time_window_length, preprocessed_data_path,
+                                  data_chunk_folder_path)
     end_time = time.time()
-    print('Completed data stream separation in ', int(end_time-start_time), ' seconds')
+    print('Completed data stream separation in ', int(end_time - start_time), ' seconds')
     print()
 
     # generate data statistics
@@ -42,7 +43,8 @@ def webed(data_file_path, from_time, to_time, time_window_length, diff_threshold
     start_time = time.time()
     word_embedding_folder_path = os.path.join(resource_folder_path, word_embedding_folder, file_name)
     learn_word2vec_bulk(data_chunk_folder_path, word_embedding_folder_path, model_type=model_type,
-                        min_word_count=min_word_count, vector_size=vector_size, window_size=window_size)
+                        min_word_count=min_word_count, vector_size=vector_size, window_size=window_size,
+                        worker_count=we_workers)
     end_time = time.time()
     print('Completed word embedding learning in ', int(end_time - start_time), ' seconds')
     print()

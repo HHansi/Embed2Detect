@@ -5,6 +5,7 @@ model_type = 'sg'
 min_word_count = 1
 vector_size = 100
 window_size = 5
+we_workers = 1  # for reproducible results it is recommended to use single worker for word embedding generation
 
 # performance configs
 workers = 2
