@@ -1,4 +1,4 @@
-##Data sets and ground truth
+## Data sets and ground truth
 Tweet IDs of collected data and keywords which describe the events occurred during the selected time frames as ground truth
 
 ### Available data sets
@@ -14,9 +14,9 @@ occurred time window
 
 ### Ground truth format
 - Time periods of ground truth events are mentioned as the name of .txt file <br>
-For MUNLIV, 2 minute time windows are considered and for BrexitVote, 30 minute time windows are considered. 
+For MUNLIV, 2 minute time windows and for BrexitVote, 30 minute time windows are considered. 
 (e.g. in MINLIV, 2019_10_20_15_30 represents the time window 2019:10:20 15:30 - 15:32 )
-- Keywords related to an event is represented using a single line in .txt file
+- Keywords related to an event are mentioned in a single line in .txt file
 - Synonym (similar) words are grouped using [] (e.g. <b>[</b>kick off,kickoff,kick-off<b>]</b>) <br>
 Identification of at least one word from a synonym word group is sufficient during event keyword match
 - Duplicate event keyword sets are separated using | (e.g. [full time,full-time,fulltime,FT][1-1,draw]<b>|</b>[over,end][1-1,draw]) <br>
