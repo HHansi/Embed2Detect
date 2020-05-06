@@ -1,0 +1,1 @@
+[marcus rashford,rashford,@MarcusRashford][shot,ball]|[marcus rashford,rashford,@MarcusRashford][wide]|[marcus rashford,rashford,@MarcusRashford][miss,missed]|[marcus rashford,rashford,@MarcusRashford][nearly,close]
