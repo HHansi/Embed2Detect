@@ -1,4 +1,4 @@
-# WEb-ED
+# Embed2Detect
 ## Word Embedding-based Event Detection for social media
 
 ### About
