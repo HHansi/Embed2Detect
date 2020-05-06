@@ -3,13 +3,13 @@
 
 ### About
 Python 3.7 implementation of Embed2Detect <br>
-Used packages are listed in requirements.txt
+Used packages are listed in [requirements.txt](https://github.com/HHansi/WEb-ED/blob/master/requirements.txt)
 
 ### Event Detection
 run main.py given the parameters; 
 - data_file_path - path to input file
 - from_time, to_time - parameters to define time period for event detection formatted as %Y_%m_%d_%H_%M_%S (e.g. 2019_10_20_15_28_00)
-(Using the time period, data in input file can be filtered timely)
+(Using the time period, data in the input file can be filtered timely)
 - window_legth - length for time window in minutes
 - diff_threshold - value for diffThreshold 
 - frequency_threshold - value for freqThreshold
