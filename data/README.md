@@ -15,7 +15,7 @@ occurred time window
 ### Ground truth format
 - Time periods of ground truth events are mentioned as the name of .txt file <br>
 For MUNLIV, 2 minute time windows and for BrexitVote, 30 minute time windows are considered. 
-(e.g. in MINLIV, 2019_10_20_15_30 represents the time window 2019:10:20 15:30 - 15:32 )
+(e.g. in MINLIV, 2019_10_20_15_30 represents the time window 2019-10-20 15:30 - 15:32 )
 - Keywords related to an event are mentioned in a single line in .txt file
 - Synonym (similar) words are grouped using [] (e.g. <b>[</b>kick off,kickoff,kick-off<b>]</b>) <br>
 Identification of at least one word from a synonym word group is sufficient during event keyword match
