@@ -1,3 +1,4 @@
+# python=3.7
 gensim==3.8.1 # conda install -c conda-forge gensim
 scikit-learn==0.22.1
 pandas==0.25.3
