@@ -7,7 +7,7 @@ Used packages are listed in [requirements.txt](https://github.com/HHansi/WEb-ED/
 General configuration details of the project including word embedding configs, performance configs and file path configs
  are available in [project_config.py]()
 
-### Event Detection
+### Event detection
 run main.py given the parameters; 
 - data_file_path - path to input file
 - from_time, to_time - parameters to define time period for event detection formatted as %Y_%m_%d_%H_%M_%S (e.g. 2019_10_20_15_28_00)
@@ -27,13 +27,10 @@ run main.py given the parameters;
 Completed event detection saves a folder with given input file name in the results_folder_path mentioned under project_config. 
 This folder contains .txt files where events words are saved as single word per line corresponding to each event window.
 
-### Event Evaluation
-run evaluate.py given the parameters;
-- groundtruth_folder - path to ground truth folder
-- file_name - name of the results folder (result folder need to be located in the results_folder_path mentioned under 
-project_config and results need to be formatted according to the output format)
-
-Evaluation outputs the values corresponding to F1, Precision, Recall and Micro Keyword Recall
+### Data preprocessing
+Depending on the target data set, data preprocessing techniques can be customised. The default preprocessing flow which 
+was developed by targeting a Twitter data set is available under the method; <em>preprocessing_flow<em> in 
+[data_preprocessor.py]().
 
 
 
