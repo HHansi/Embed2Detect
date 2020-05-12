@@ -8,15 +8,15 @@ from project_config import preprocessed_data_folder, resource_folder_path, data_
     data_stats_folder, results_folder_path, preprocess, workers, aggregation_method, model_type, min_word_count, \
     vector_size, context_size, we_workers
 from utils.file_utils import get_file_name
-from webed.event_window_identifier import get_event_windows
-from webed.event_word_extractor import get_event_words
-from webed.stream_chunker import filter_documents_by_time_bulk
-from webed.word_embedding_learner import learn_word2vec_bulk
+from embed2detect.event_window_identifier import get_event_windows
+from embed2detect.event_word_extractor import get_event_words
+from embed2detect.stream_chunker import filter_documents_by_time_bulk
+from embed2detect.word_embedding_learner import learn_word2vec_bulk
 
 
 # from_time and to_time format - '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
 # time_window_length - minutes
-def webed(data_file_path, from_time, to_time, time_window_length, diff_threshold, frequency_threshold):
+def embed2detect(data_file_path, from_time, to_time, time_window_length, alpha, beta):
     file_name = get_file_name(os.path.basename(data_file_path))
     start_time_full_process = time.time()
 
@@ -52,8 +52,8 @@ def webed(data_file_path, from_time, to_time, time_window_length, diff_threshold
     # identify event windows
     print('Identifying event windows')
     start_time = time.time()
-    event_windows = get_event_windows(word_embedding_folder_path, data_stat_folder_path, diff_threshold,
-                                      frequency_threshold, preprocess=preprocess, workers=workers, similarity_type='dl',
+    event_windows = get_event_windows(word_embedding_folder_path, data_stat_folder_path, alpha,
+                                      beta, preprocess=preprocess, workers=workers, similarity_type='dl',
                                       aggregation_method=aggregation_method)
     end_time = time.time()
     print('Completed event window identification in ', int(end_time - start_time), ' seconds')
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     from_time = '2019_10_20_15_28_00'
     to_time = '2019_10_20_15_34_00'
     window_legth = 2
-    diff_threshold = 0.15
-    frequency_threshold = 10
+    alpha = 0.15
+    beta = 10
 
-    webed(data_file_path, from_time, to_time, window_legth, diff_threshold, frequency_threshold)
+    embed2detect(data_file_path, from_time, to_time, window_legth, alpha, beta)

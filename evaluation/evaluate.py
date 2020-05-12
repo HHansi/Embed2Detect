@@ -56,18 +56,18 @@ def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_fo
 if __name__ == '__main__':
     groundtruth_folder = 'E:/Work Spaces/Event-data/MUNLIV_2019_GT-min2'
     file_name = 'MUNLIV'
+    result_folder_path = os.path.join(results_folder_path, file_name)
 
     # grountruth labels need to pre-process using the same flow which is used to pre-process document text
     preprocessed_gt_folder_path = os.path.join(resource_folder_path, preprocessed_data_folder,
                                                os.path.basename(groundtruth_folder))
     preprocess_gt_bulk(groundtruth_folder, preprocessed_gt_folder_path)
 
-    result_folder_path = os.path.join(results_folder_path, file_name)
     eval_result_folder_path = os.path.join(results_folder_path, evaluation_results_folder, file_name)
     topic_recall, topic_precision, topic_f1, micro_keyword_recall = evaluate_results(result_folder_path,
                                                                                      preprocessed_gt_folder_path,
                                                                                      eval_result_folder_path=eval_result_folder_path)
-    print('Topic F1: ', topic_f1)
-    print('Topic Precision: ', topic_precision)
-    print('Topic Recall: ', topic_recall)
+    print('F1: ', topic_f1)
+    print('Precision: ', topic_precision)
+    print('Recall: ', topic_recall)
     print('Micro Keyword Recall: ', micro_keyword_recall)
