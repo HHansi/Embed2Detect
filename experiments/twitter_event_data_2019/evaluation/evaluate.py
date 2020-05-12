@@ -3,9 +3,9 @@ import os
 
 from data_analysis.data_preprocessor import preprocess_gt_bulk
 from data_analysis.groundtruth_processor import load_gt, get_combined_gt
-from evaluation.general_methods import calculate_recall, calculate_precision, calculate_f1
-from evaluation.keyword_evaluate import eval_clusters
-from evaluation.topic_evaluate import get_topic_measures
+from experiments.twitter_event_data_2019.evaluation.general_methods import calculate_recall, calculate_precision, calculate_f1
+from experiments.twitter_event_data_2019.evaluation.keyword_evaluate import eval_clusters
+from experiments.twitter_event_data_2019.evaluation.topic_evaluate import get_topic_measures
 from project_config import results_folder_path, resource_folder_path, preprocessed_data_folder, \
     evaluation_results_folder
 from utils.file_utils import get_file_name, read_list_from_text_file, write_list_to_text_file

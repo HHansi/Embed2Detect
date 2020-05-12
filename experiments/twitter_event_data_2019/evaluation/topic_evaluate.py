@@ -1,5 +1,5 @@
 # Created by Hansi at 1/14/2020
-from evaluation.keyword_evaluate import eval_clusters
+from experiments.twitter_event_data_2019.evaluation.keyword_evaluate import eval_clusters
 
 
 def get_total_event_count(dict_groundtruth):
