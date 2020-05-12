@@ -1,2 +1,0 @@
-[Fred][ball,shot,shoot,shoots,shooting]|[Fred][wide]|[Fred][nearly,close]
-[Anthony Martial,Martial,@AnthonyMartial][on][marcus rashford,rashford,@MarcusRashford][off]|[Anthony Martial,Martial,@AnthonyMartial][in][marcus rashford,rashford,@MarcusRashford][out]|[Anthony Martial,Martial,@AnthonyMartial][marcus rashford,rashford,@MarcusRashford][replace,replaced,sub.subs,subbing,change,substitution,substituted]

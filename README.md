@@ -3,12 +3,12 @@
 
 ### About
 Python 3.7 implementation of Embed2Detect <br>
-Used packages are listed in [requirements.txt](https://github.com/HHansi/WEb-ED/blob/master/requirements.txt) <br>
+Used packages are listed in [requirements.txt](https://github.com/HHansi/Embed2Detect/blob/master/requirements.txt) <br>
 General configuration details of the project including word embedding configs, performance configs and file path configs
- are available in [project_config.py]()
+ are available in [project_config.py](https://github.com/HHansi/Embed2Detect/blob/master/project_config.py)
 
 ### Event detection
-run main.py given the parameters; 
+run [main.py](https://github.com/HHansi/Embed2Detect/blob/master/embed2detect/main.py) given the parameters; 
 - data_file_path - path to input file
 - from_time, to_time - parameters to define time period for event detection formatted as %Y_%m_%d_%H_%M_%S (e.g. 2019_10_20_15_28_00)
 (Using the time period, data in the input file can be filtered timely)
@@ -30,7 +30,7 @@ This folder contains .txt files where events words are saved as single word per 
 ### Data preprocessing
 Depending on the target data set, data preprocessing techniques can be customised. The default preprocessing flow which 
 was developed by targeting a Twitter data set is available under the method; <em>preprocessing_flow<em> in 
-[data_preprocessor.py]().
+[data_preprocessor.py](https://github.com/HHansi/Embed2Detect/blob/master/data_analysis/data_preprocessor.py).
 
 
 

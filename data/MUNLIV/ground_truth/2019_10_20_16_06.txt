@@ -1,2 +1,0 @@
-[goal][Manchester United,Manchester,Man United,Man Utd,Manutd,MUFC][1-0][marcus rashford,rashford,@MarcusRashford]|[goal][Manchester United,Manchester,Man United,Man Utd,Manutd,MUFC][1][0][marcus rashford,rashford,@MarcusRashford]
-[VARCHECK][goal]|[VAR][check,checking,review][goal]
