@@ -13,7 +13,7 @@ run main.py given the parameters;
 - from_time, to_time - parameters to define time period for event detection formatted as %Y_%m_%d_%H_%M_%S (e.g. 2019_10_20_15_28_00)
 (Using the time period, data in the input file can be filtered timely)
 - window_legth - length for time window in minutes
-- alpha - value for parameter alpha belong to the range, [0,1]
+- alpha - value for parameter alpha which belong to the range, [0,1]
 - beta - value for parameter beta
 
 #### Input file format
@@ -24,8 +24,8 @@ run main.py given the parameters;
 - empty cells should be indicated using '\_na\_'
 
 #### Output format
-Folder with given input file name saved in the results_folder_path mentioned under project_config which contains .txt 
-files corresponding to each event window. Event words are saved in .txt files as a word per line.
+Completed event detection saves a folder with given input file name in the results_folder_path mentioned under project_config. 
+This folder contains .txt files where events words are saved as single word per line corresponding to each event window.
 
 ### Event Evaluation
 run evaluate.py given the parameters;
