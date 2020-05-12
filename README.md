@@ -1,5 +1,4 @@
 # Embed2Detect
-## Word Embedding-based Event Detection for social media
 
 ### About
 Python 3.7 implementation of Embed2Detect <br>
@@ -13,7 +12,7 @@ run [main.py](https://github.com/HHansi/Embed2Detect/blob/master/embed2detect/ma
 - from_time, to_time - parameters to define time period for event detection formatted as %Y_%m_%d_%H_%M_%S (e.g. 2019_10_20_15_28_00)
 (Using the time period, data in the input file can be filtered timely)
 - window_legth - length for time window in minutes
-- alpha - value for parameter alpha which belong to the range, [0,1]
+- alpha - value for parameter alpha
 - beta - value for parameter beta
 
 #### Input file format
@@ -29,7 +28,7 @@ This folder contains .txt files where events words are saved as single word per 
 
 ### Data preprocessing
 Depending on the target data set, data preprocessing techniques can be customised. The default preprocessing flow which 
-was developed by targeting a Twitter data set is available under the method; <em>preprocessing_flow<em> in 
+was developed by targeting a Twitter data set is available under the method; <em>preprocessing_flow</em> in 
 [data_preprocessor.py](https://github.com/HHansi/Embed2Detect/blob/master/data_analysis/data_preprocessor.py).
 
 

@@ -74,7 +74,7 @@ def embed2detect(data_file_path, from_time, to_time, time_window_length, alpha, 
 
 
 if __name__ == '__main__':
-    data_file_path = 'E:/Work Spaces/Event-data/MUNLIV_2019/dataset-15.28-17.23-with-headers.tsv'
+    data_file_path = 'E:/Work Spaces/Event-data/MUNLIV_2019/dataset-15.28-17.23.tsv'
     from_time = '2019_10_20_15_28_00'
     to_time = '2019_10_20_15_34_00'
     window_legth = 2

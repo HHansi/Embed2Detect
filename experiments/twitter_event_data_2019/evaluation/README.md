@@ -24,5 +24,5 @@ The Output format of Embed2Detect which is further described as follows;
 [Twitter Event Data 2019](https://github.com/HHansi/Twitter-Event-Data-2019). <br>
 - Ground truth labels need to be preprocessed using the same preprocessing techniques used by event detection method in 
 order to conduct more effective comparisons during the evaluation. <br>
-To customise the preprocessing flow, change/switch the method; <em>preprocessing_flow<em> in 
+To customise the preprocessing flow, change/switch the method; <em>preprocessing_flow</em> in 
 [data_preprocessor.py](https://github.com/HHansi/Embed2Detect/blob/master/data_analysis/data_preprocessor.py) accordingly.
