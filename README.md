@@ -1,10 +1,11 @@
 # Embed2Detect
+Embed2Detect is an event detection mechanism developed for social media data. More details about this system can be 
+found from the reference paper <strong>"Embed2Detect: Temporally Clustered EmbeddedWords for Event Detection in Social Media"</strong> mentioned below. <br>
+If you use this software, please cite the below reference.
 
 ### About
 Python 3.7 implementation of Embed2Detect <br>
 Used packages are listed in [requirements.txt](https://github.com/HHansi/Embed2Detect/blob/master/requirements.txt) <br>
-General configuration details of the project including word embedding configs, performance configs and file path configs
- are available in [project_config.py](https://github.com/HHansi/Embed2Detect/blob/master/project_config.py)
 
 ### Event detection
 run [main.py](https://github.com/HHansi/Embed2Detect/blob/master/embed2detect/main.py) given the parameters; 
@@ -26,10 +27,32 @@ run [main.py](https://github.com/HHansi/Embed2Detect/blob/master/embed2detect/ma
 Completed event detection saves a folder with given input file name in the results_folder_path mentioned under project_config. 
 This folder contains .txt files where events words are saved as single word per line corresponding to each event window.
 
-### Data preprocessing
-Depending on the target data set, data preprocessing techniques can be customised. The default preprocessing flow which 
+### Data cleaning
+Depending on the target data set, data cleaning techniques can be customised. The default flow which 
 was developed by targeting a Twitter data set is available under the method; <em>preprocessing_flow</em> in 
 [data_preprocessor.py](https://github.com/HHansi/Embed2Detect/blob/master/data_analysis/data_preprocessor.py).
+
+### Project configurations
+General configuration details of the project including word embedding configs, performance configs and file path configs
+ are available in [project_config.py](https://github.com/HHansi/Embed2Detect/blob/master/project_config.py).
+- preprocess -: preprocessing methods to use (provide as a list of method names)<br>
+currently supported preprocessing methods - 'rm-punct': remove punctuation, 'rm-stop_words': remove stop words <br>
+default - ['rm-punct', 'rm-stop_words']
+- aggregation_method -: aggregation method to use <br>
+currently supported preprocessing methods - 'max': maximum calculation, 'avg': average calculation <br>
+default - 'max'
+
+### Reference
+```
+@article{embed2detect,
+  title={Embed2Detect: Temporally Clustered EmbeddedWords for Event Detection in Social Media},
+  author={Hettiarachchi, Hansi and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
+}
+```
+
+
+ 
+
 
 
 
