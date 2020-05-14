@@ -47,6 +47,7 @@ default - 'max'
 @article{embed2detect,
   title={Embed2Detect: Temporally Clustered EmbeddedWords for Event Detection in Social Media},
   author={Hettiarachchi, Hansi and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
+  year={2020}
 }
 ```
 
