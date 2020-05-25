@@ -56,7 +56,7 @@ def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_fo
 if __name__ == '__main__':
     groundtruth_folder = 'E:/Work Spaces/Event-data/MUNLIV_2019_GT-min2'
     file_name = 'MUNLIV'
-    result_folder_path = os.path.join(results_folder_path, file_name)
+    result_folder_path = os.path.join('../../', results_folder_path, file_name)
 
     # grountruth labels need to pre-process using the same flow which is used to pre-process document text
     preprocessed_gt_folder_path = os.path.join(resource_folder_path, preprocessed_data_folder,
