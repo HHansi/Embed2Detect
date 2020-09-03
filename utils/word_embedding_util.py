@@ -2,8 +2,14 @@
 from gensim.models import Word2Vec
 
 
-def load_model(model_path):
-    return Word2Vec.load(model_path)
+# supported types - 'w2v' , 'ft'
+def load_model(model_path, type):
+    if type == 'w2v':
+        return Word2Vec.load(model_path)
+    elif type == 'ft':
+        return FastText.load(model_path)
+    else:
+        raise KeyError("Not supported model type is given")
 
 
 def get_embedding(word, model):
