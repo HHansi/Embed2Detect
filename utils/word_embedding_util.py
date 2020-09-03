@@ -1,5 +1,5 @@
 # Created by Hansi at 2/7/2020
-from gensim.models import Word2Vec
+from gensim.models import Word2Vec, FastText
 
 
 # supported types - 'w2v' , 'ft'
