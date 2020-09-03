@@ -14,7 +14,7 @@ def learn_embeddings(data_folder_path, model_folder_path):
         learn_word2vec_bulk(data_folder_path, model_folder_path, learn_type=learn_type,
                             min_word_count=min_word_count, vector_size=vector_size, window_size=context_size,
                             worker_count=we_workers)
-    if model_type == 'sg':
+    if model_type == 'ft':
         learn_fasttext_bulk(data_folder_path, model_folder_path, learn_type=learn_type, min_word_count=min_word_count,
                             vector_size=vector_size,
                             window_size=context_size, worker_count=we_workers)
