@@ -58,3 +58,6 @@ def save_row(result, result_file_path):
     result_writer = csv.writer(result_file, delimiter='\t')
     result_writer.writerow(result)
     result_file.close()
+
+def get_file_extension(path):
+    return os.path.splitext(path)[1]
