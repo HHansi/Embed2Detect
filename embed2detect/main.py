@@ -4,14 +4,13 @@ import time
 
 from data_analysis.data_preprocessor import preprocess_bulk
 from data_analysis.stat_generator import generate_stats
-from project_config import preprocessed_data_folder, resource_folder_path, data_window_folder, word_embedding_folder, \
-    data_stats_folder, results_folder_path, preprocess, workers, aggregation_method, model_type, min_word_count, \
-    vector_size, context_size, we_workers
-from utils.file_utils import get_file_name
 from embed2detect.event_window_identifier import get_event_windows
 from embed2detect.event_word_extractor import get_event_words
 from embed2detect.stream_chunker import filter_documents_by_time_bulk
-from embed2detect.word_embedding_learner import learn_word2vec_bulk
+from embed2detect.word_embedding_learner import learn_embeddings
+from project_config import preprocessed_data_folder, resource_folder_path, data_window_folder, word_embedding_folder, \
+    data_stats_folder, results_folder_path, preprocess, workers, aggregation_method
+from utils.file_utils import get_file_name
 
 
 # from_time and to_time format - '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
@@ -42,9 +41,7 @@ def embed2detect(data_file_path, from_time, to_time, time_window_length, alpha, 
     print('Learning word embeddings')
     start_time = time.time()
     word_embedding_folder_path = os.path.join(resource_folder_path, word_embedding_folder, file_name)
-    learn_word2vec_bulk(data_chunk_folder_path, word_embedding_folder_path, model_type=model_type,
-                        min_word_count=min_word_count, vector_size=vector_size, window_size=context_size,
-                        worker_count=we_workers)
+    learn_embeddings(data_chunk_folder_path, word_embedding_folder_path)
     end_time = time.time()
     print('Completed word embedding learning in ', int(end_time - start_time), ' seconds')
     print()

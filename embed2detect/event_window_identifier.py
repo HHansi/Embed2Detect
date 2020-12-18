@@ -4,7 +4,8 @@ import os
 from algo.cluster_change_calculation import calculate_cluster_change
 from algo.utils.vocabulary_calculation import load_wordcounts, filter_vocabulary_by_frequency, preprocess_vocabulary
 from algo.vocabulary_change_calculation import calculate_vocab_change
-from utils.file_utils import save_row
+from project_config import model_type
+from utils.file_utils import save_row, get_file_extension
 from utils.word_embedding_util import load_model, get_vocab
 
 
@@ -20,8 +21,10 @@ def get_sorted_timeframes(model_folder_path):
     time_frames = []
     for root, dirs, files in os.walk(model_folder_path):
         for file in files:
-            file_name = os.path.splitext(file)[0]
-            time_frames.append(file_name)
+            # only consider .model files
+            if get_file_extension(file) == '.model':
+                file_name = os.path.splitext(file)[0]
+                time_frames.append(file_name)
 
     time_frames.sort()
     return time_frames
@@ -42,8 +45,8 @@ def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequ
             info_label = t1 + '-' + t2
             print('processing ', info_label)
             # load word embedding models
-            model1 = load_model(os.path.join(model_folder_path, t1 + '.model'))
-            model2 = load_model(os.path.join(model_folder_path, t2 + '.model'))
+            model1 = load_model(os.path.join(model_folder_path, t1 + '.model'), model_type)
+            model2 = load_model(os.path.join(model_folder_path, t2 + '.model'), model_type)
             # load stats
             word_counts1 = load_wordcounts(os.path.join(stat_folder_path, t1 + '.tsv'))
             word_counts2 = load_wordcounts(os.path.join(stat_folder_path, t2 + '.tsv'))
