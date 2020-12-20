@@ -1,5 +1,5 @@
 # Created by Hansi at 3/16/2020
-
+import logging
 import os
 import time
 
@@ -7,6 +7,8 @@ from algo.fasttext import build_fasttext
 from algo.word2vec import build_cbow, build_skipgram
 from project_config import model_type, learn_type, min_word_count, vector_size, context_size, we_workers
 from utils.file_utils import read_text_column, delete_create_folder
+
+logger = logging.getLogger(__name__)
 
 
 def learn_embeddings(data_folder_path, model_folder_path):
@@ -49,11 +51,11 @@ def learn_word2vec_bulk(data_folder_path, model_folder_path, learn_type=None, mi
             file_path = os.path.join(data_folder_path, file)
             file_name = os.path.splitext(file)[0]
             model_path = os.path.join(model_folder_path, file_name)
-            print('learning word embeddings- ', file_name)
+            logger.info(f'learning word embeddings- {file_name}')
             start_time = time.time()
             learn_word2vec(file_path, model_path, learn_type, min_word_count, vector_size, window_size, worker_count)
             end_time = time.time()
-            print('Completed learning in ', int(end_time - start_time), ' seconds')
+            logger.info(f'Completed learning in {int(end_time - start_time)} seconds')
 
 
 def learn_fasttext(data_file, model_path, learn_type='sg', min_word_count=1, vector_size=100, window_size=5,
@@ -81,9 +83,9 @@ def learn_fasttext_bulk(data_folder_path, model_folder_path, learn_type='sg', mi
             file_path = os.path.join(data_folder_path, file)
             file_name = os.path.splitext(file)[0]
             model_path = os.path.join(model_folder_path, file_name)
-            print('learning word embeddings- ', file_name)
+            logger.info(f'learning word embeddings- {file_name}')
             start_time = time.time()
             learn_fasttext(file_path, model_path, learn_type, min_word_count, vector_size, window_size, worker_count,
                            min_n, max_n)
             end_time = time.time()
-            print('Completed learning in ', int(end_time - start_time), ' seconds')
+            logger.info(f'Completed learning in {int(end_time - start_time)} seconds')

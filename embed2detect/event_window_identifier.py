@@ -1,4 +1,5 @@
 # Created by Hansi at 3/16/2020
+import logging
 import os
 
 from algo.cluster_change_calculation import calculate_cluster_change
@@ -7,6 +8,8 @@ from algo.vocabulary_change_calculation import calculate_vocab_change
 from project_config import model_type
 from utils.file_utils import save_row, get_file_extension
 from utils.word_embedding_util import load_model, get_vocab
+
+logger = logging.getLogger(__name__)
 
 
 class EventWindow:
@@ -34,7 +37,7 @@ def get_sorted_timeframes(model_folder_path):
 def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequency_threshold=None, preprocess=None,
                       workers=1, similarity_type=None, aggregation_method=None, result_file=None):
     time_frames = get_sorted_timeframes(model_folder_path)
-    print("length of time frames", len(time_frames))
+    logger.info(f'length of time frames {len(time_frames)}')
 
     event_windows = []
 
@@ -43,7 +46,8 @@ def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequ
             t1 = time_frames[index]
             t2 = time_frames[index + 1]
             info_label = t1 + '-' + t2
-            print('processing ', info_label)
+            logger.info(f'processing {info_label}')
+
             # load word embedding models
             model1 = load_model(os.path.join(model_folder_path, t1 + '.model'), model_type)
             model2 = load_model(os.path.join(model_folder_path, t2 + '.model'), model_type)

@@ -1,7 +1,11 @@
 # Created by Hansi at 3/16/2020
 import collections
+import logging
 
 from sklearn.cluster import AgglomerativeClustering
+
+
+logger = logging.getLogger(__name__)
 
 
 # data - list of data points[]
@@ -23,7 +27,7 @@ def get_dendrogram_tree(data, affinity, linkage):
 # return dictionary[label, label_code]
 def generate_dendrogram_level_codes(data, label_list, affinity, linkage):
     if len(data) == 0:
-        print('Cannot generate dendrograms for empty data')
+        logger.error('Cannot generate dendrograms for empty data')
         raise RuntimeError('Empty data for dendrogram generation')
     label_codes = dict()
     max_level_count = 0
@@ -31,7 +35,6 @@ def generate_dendrogram_level_codes(data, label_list, affinity, linkage):
     right_code = '1'
     code_dict = dict()
     tree_dict = get_dendrogram_tree(data, affinity, linkage)
-    # print(tree_dict)
 
     i = 0
     for child in tree_dict.keys():

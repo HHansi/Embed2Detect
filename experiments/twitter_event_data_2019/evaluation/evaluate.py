@@ -1,4 +1,5 @@
 # Created by Hansi at 3/16/2020
+import logging
 import os
 
 from data_analysis.data_preprocessor import preprocess_gt_bulk
@@ -9,6 +10,8 @@ from experiments.twitter_event_data_2019.evaluation.topic_evaluate import get_to
 from project_config import results_folder_path, resource_folder_path, preprocessed_data_folder, \
     evaluation_results_folder
 from utils.file_utils import get_file_name, read_list_from_text_file, write_list_to_text_file
+
+logger = logging.getLogger(__name__)
 
 
 def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_folder_path=None):
@@ -50,6 +53,11 @@ def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_fo
     topic_f1 = calculate_f1(topic_recall, topic_precision)
     micro_keyword_recall = calculate_recall(total_keyword_tp, total_keyword_n)
 
+    logger.info(f'F1: {topic_f1}')
+    logger.info(f'Precision: {topic_precision}')
+    logger.info(f'Recall: {topic_recall}')
+    logger.info(f'Micro Keyword Recall: {micro_keyword_recall}')
+
     return topic_recall, topic_precision, topic_f1, micro_keyword_recall
 
 
@@ -66,8 +74,6 @@ if __name__ == '__main__':
     eval_result_folder_path = os.path.join(results_folder_path, evaluation_results_folder, file_name)
     topic_recall, topic_precision, topic_f1, micro_keyword_recall = evaluate_results(result_folder_path,
                                                                                      preprocessed_gt_folder_path,
-                                                                                     eval_result_folder_path=eval_result_folder_path)
-    print('F1: ', topic_f1)
-    print('Precision: ', topic_precision)
-    print('Recall: ', topic_recall)
-    print('Micro Keyword Recall: ', micro_keyword_recall)
+
+                                                                              eval_result_folder_path=eval_result_folder_path)
+

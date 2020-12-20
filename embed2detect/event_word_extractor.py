@@ -1,10 +1,13 @@
 # Created by Hansi at 3/16/2020
+import logging
 import os
 
 import numpy as np
 
 from algo.utils.matrix_calculation import get_sorted_matrix_labels
 from utils.file_utils import write_list_to_text_file, delete_create_folder
+
+logger = logging.getLogger(__name__)
 
 
 # n - word count (number of top words needed as event words)
@@ -14,7 +17,7 @@ def get_event_words(event_windows, result_folder, n=None):
 
     for event_window in event_windows:
         time_window = event_window.time_window
-        print('Extracting events words in ', time_window)
+        logger.info(f'Extracting events words in {time_window}')
         diff_ut_matrix = event_window.diff_ut_matrix
         vocab = event_window.vocab
 

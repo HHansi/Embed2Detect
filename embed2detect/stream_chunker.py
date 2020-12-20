@@ -1,8 +1,11 @@
 # Created by Hansi at 3/16/2020
 
 import csv
+import logging
 import os
 from datetime import datetime, timedelta
+
+logger = logging.getLogger(__name__)
 
 
 # Filter documents in input file from given from_time_str to given to_time_str
@@ -57,12 +60,7 @@ def filter_documents_by_time_bulk(from_time_str, to_time_str, time_duration, inp
         output_file_path = os.path.join(output_folder_path, short_from_time_str + '.tsv')
         n = filter_documents_by_time(input_file_path, from_time_str, to_time_str, output_file_path)
 
-        print(from_time_str + " : " + str(n))
-        # stat_file_path = os.path.join(output_folder_path, 'stats.tsv')
-        # stat_file = open(stat_file_path, 'a', newline='', encoding='utf-8')
-        # stat_writer = csv.writer(stat_file, delimiter='\t')
-        # stat_writer.writerow([from_time_str, n])
-        # stat_file.close()
+        logger.info(f'{from_time_str}: {str(n)}')
 
         from_time_temp = from_time_temp + timedelta(seconds=60 * time_duration)
         from_time_str = from_time_temp.strftime('%Y_%m_%d_%H_%M_%S')
