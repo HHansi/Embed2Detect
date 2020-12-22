@@ -84,17 +84,17 @@ def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_fo
 
 
 if __name__ == '__main__':
-    groundtruth_folder = 'E:/Work Spaces/Event-data/MUNLIV_2019_GT-min2'
-    # file_name = 'MUNLIV'
-    file_name = 'dataset-15.28-17.23-with-headers'
-    result_folder_path = os.path.join('../../', results_folder_path, file_name)
+    groundtruth_folder_path = '../gt_data/gt_munliv'
+    results_folder_name = 'munliv'
+
+    result_folder_path = os.path.join('../../', results_folder_path, results_folder_name)
 
     # grountruth labels need to pre-process using the same flow which is used to pre-process document text
     preprocessed_gt_folder_path = os.path.join(resource_folder_path, preprocessed_data_folder,
-                                               os.path.basename(groundtruth_folder))
-    preprocess_gt_bulk(groundtruth_folder, preprocessed_gt_folder_path)
+                                               os.path.basename(groundtruth_folder_path))
+    preprocess_gt_bulk(groundtruth_folder_path, preprocessed_gt_folder_path)
 
-    eval_result_folder_path = os.path.join(results_folder_path, evaluation_results_folder, file_name)
+    eval_result_folder_path = os.path.join(results_folder_path, evaluation_results_folder, results_folder_name)
     topic_recall, topic_precision, topic_f1, micro_keyword_recall = evaluate_results(result_folder_path,
                                                                                      preprocessed_gt_folder_path,
                                                                                      eval_result_folder_path=eval_result_folder_path)
