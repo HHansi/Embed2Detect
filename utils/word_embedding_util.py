@@ -74,7 +74,7 @@ def format_data(data_file_path):
     data = []
     for i in data_loaded:
         temp = []
-        for j in i.lower().split():
+        for j in i.split():
             temp.append(j)
         data.append(temp)
     return data
