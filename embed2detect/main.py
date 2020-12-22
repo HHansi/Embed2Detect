@@ -15,17 +15,16 @@ from utils.file_utils import get_file_name
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+logging.getLogger("gensim").setLevel(logging.WARNING)
 
 
-# from_time and to_time format - '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
-# time_window_length - minutes
-def embed2detect(data_file_path: str, from_time: str, to_time: str, time_window_length: int, alpha: float, beta: float):
+def embed2detect(data_file_path: str, from_time: str, to_time: str, time_window_length: int, alpha: float, beta: int):
     """
     The main flow of Embed2Detect.
 
     parameters
     -----------
-    :param data_file_path: .tsv file of data
+    :param data_file_path: str (.tsv file path)
         There should be at least 3 columns in the file corresponding to id, timestamp and text with the column names.
         The timestamp values need to be formatted as %Y-%m-%d %H:%M:%S
     :param from_time: str formatted as '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
@@ -36,7 +35,7 @@ def embed2detect(data_file_path: str, from_time: str, to_time: str, time_window_
         Time window length in minutes.
     :param alpha: float
         Hyper-parameter alpha
-    :param beta: float
+    :param beta: int
         Hyper-parameter beta
     :return:
     """
@@ -94,8 +93,9 @@ if __name__ == '__main__':
     data_file_path = 'E:/Work Spaces/Event-data/MUNLIV_2019/dataset-15.28-17.23-with-headers.tsv'
     from_time = '2019_10_20_15_28_00'
     to_time = '2019_10_20_15_34_00'
+    # to_time = '2019_10_20_17_23_59'
     window_legth = 2
-    alpha = 0.15
-    beta = 10
+    alpha = 0.23
+    beta = 20
 
     embed2detect(data_file_path, from_time, to_time, window_legth, alpha, beta)

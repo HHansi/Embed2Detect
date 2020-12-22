@@ -4,17 +4,39 @@ import os
 
 from data_analysis.data_preprocessor import preprocess_gt_bulk
 from data_analysis.groundtruth_processor import load_gt, get_combined_gt
-from experiments.twitter_event_data_2019.evaluation.general_methods import calculate_recall, calculate_precision, calculate_f1
+from experiments.twitter_event_data_2019.evaluation.general_methods import calculate_recall, calculate_precision, \
+    calculate_f1
 from experiments.twitter_event_data_2019.evaluation.keyword_evaluate import eval_clusters
 from experiments.twitter_event_data_2019.evaluation.topic_evaluate import get_topic_measures
 from project_config import results_folder_path, resource_folder_path, preprocessed_data_folder, \
     evaluation_results_folder
 from utils.file_utils import get_file_name, read_list_from_text_file, write_list_to_text_file
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
 def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_folder_path=None):
+    """
+    Method to compute evaluation measures by comparing results with ground truth (GT).
+    Files in results folder and GT folder need to be named by time windows formatted similarly.
+
+    Recall, Precision, F1 and Keyword-Recall(Micro-averaged) will be calculated and logged.
+
+    parameters
+    -----------
+    :param result_folder_path: str
+        Path to folder which contains results of event detection.
+        In this folder, there should be separate .txt files for each event occurred time window. In a .txt file event
+        words should be listed with one word per line.
+    :param groundtruth_folder_path: str
+        Path to GT data folder.
+        e.g., Twitter-Event-Data-2019 MUNLIV or BrexitVote folder
+    :param eval_result_folder_path: str, optional
+        Folder path to save matched words in each time window.
+    :return: float, float, float, float
+        Recall, Precision, F1 and Keyword recall
+    """
     groundtruth = load_gt(groundtruth_folder_path)
     combined_gt = get_combined_gt(groundtruth)
 
@@ -63,7 +85,8 @@ def evaluate_results(result_folder_path, groundtruth_folder_path, eval_result_fo
 
 if __name__ == '__main__':
     groundtruth_folder = 'E:/Work Spaces/Event-data/MUNLIV_2019_GT-min2'
-    file_name = 'MUNLIV'
+    # file_name = 'MUNLIV'
+    file_name = 'dataset-15.28-17.23-with-headers'
     result_folder_path = os.path.join('../../', results_folder_path, file_name)
 
     # grountruth labels need to pre-process using the same flow which is used to pre-process document text
@@ -74,6 +97,4 @@ if __name__ == '__main__':
     eval_result_folder_path = os.path.join(results_folder_path, evaluation_results_folder, file_name)
     topic_recall, topic_precision, topic_f1, micro_keyword_recall = evaluate_results(result_folder_path,
                                                                                      preprocessed_gt_folder_path,
-
-                                                                              eval_result_folder_path=eval_result_folder_path)
-
+                                                                                     eval_result_folder_path=eval_result_folder_path)

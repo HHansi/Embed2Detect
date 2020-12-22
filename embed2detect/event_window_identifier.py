@@ -20,7 +20,15 @@ class EventWindow:
         self.vocab = vocab
 
 
-def get_sorted_timeframes(model_folder_path):
+def get_sorted_timeframes(model_folder_path: str) -> list:
+    """
+    Given the model folder, sort the model names within it in ascending order
+
+    :param model_folder_path: folder path
+        Path to folder which contains model files (files with '.model' extension).
+    :return: list
+        Sorted file name list
+    """
     time_frames = []
     for root, dirs, files in os.walk(model_folder_path):
         for file in files:
@@ -33,9 +41,40 @@ def get_sorted_timeframes(model_folder_path):
     return time_frames
 
 
-#
-def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequency_threshold=None, preprocess=None,
-                      workers=1, similarity_type=None, aggregation_method=None, result_file=None):
+def get_event_windows(model_folder_path: str, stat_folder_path: str, alpha: float, beta: int = 0,
+                      preprocess: object = None, workers: int = 1, similarity_type: str = 'dl',
+                      aggregation_method: object = None, result_file: str = None) -> object:
+    """
+    Method to identify event occurred time windows
+
+    parameters
+    -----------
+    :param model_folder_path: folder path
+        Path to folder which contains word embedding models
+    :param stat_folder_path: folder path
+        Path to folder which contains stat details of data
+    :param alpha: float
+        Hyper-parameter alpha (threshold for overall change)
+    :param beta: float, optional
+        Hyper-parameter beta (threshold for word frequency)
+    :param preprocess: None or list, optional
+        None if no preprocessing required or a list of ordered preprocessing steps otherwise.
+        Supported preprocessing steps are as follows.
+        -'rm-punct': remove punctuation marks
+        -'rm-stop_words': remove stop words
+    :param workers: int, optional
+        Number of worker threads to use with event window identification.
+    :param similarity_type: {'dl', 'cos'}, optional
+        Similarity type to use with similarity matrix generation.
+    :param aggregation_method: None or {'avg', 'max'}, optional
+        None returns only the cluster change with no aggregation as the final value.
+        Given a method, it will be applied to cluster change and vocabulary change measures to generate the final value.
+    :param result_file: .tsv file path, optional
+        File path to save time window and overall change details.
+    :return: list
+        List of EventWindows
+    """
+
     time_frames = get_sorted_timeframes(model_folder_path)
     logger.info(f'length of time frames {len(time_frames)}')
 
@@ -62,8 +101,8 @@ def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequ
             common_vocab = vocab2
             if preprocess:
                 common_vocab = preprocess_vocabulary(common_vocab, preprocess)
-            if frequency_threshold:
-                common_vocab = filter_vocabulary_by_frequency(common_vocab, word_counts2, frequency_threshold)
+            if beta > 0:
+                common_vocab = filter_vocabulary_by_frequency(common_vocab, word_counts2, beta)
             common_vocab.sort()
 
             # calculate cluster change
@@ -71,18 +110,18 @@ def get_event_windows(model_folder_path, stat_folder_path, diff_threshold, frequ
                                                                       similarity_type=similarity_type)
             if not aggregation_method:
                 average_diff = cluster_change
-            if aggregation_method:
+            else:
                 vocab_change = calculate_vocab_change(vocab1, vocab2, word_counts1, word_counts2,
-                                                      frequency_threshold=frequency_threshold,
+                                                      frequency_threshold=beta,
                                                       preprocess=preprocess)
                 if 'max' == aggregation_method:
                     average_diff = max(cluster_change, vocab_change)
                 elif 'avg' == aggregation_method:
                     average_diff = (cluster_change + vocab_change) / 2
                 else:
-                    raise KeyError
+                    raise KeyError('Unknown aggregation method found')
 
-            if average_diff > diff_threshold:
+            if average_diff > alpha:
                 event_windows.append(EventWindow(t2, average_diff, diff_ut_matrix, common_vocab))
                 if result_file:
                     save_row([t2, average_diff], result_file)

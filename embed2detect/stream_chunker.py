@@ -5,21 +5,37 @@ import logging
 import os
 from datetime import datetime, timedelta
 
+from utils.file_utils import delete_create_folder
+
 logger = logging.getLogger(__name__)
 
 
-# Filter documents in input file from given from_time_str to given to_time_str
-# input and output format - [id, timestamp, text-content, *] tsv file
-# from_time_str and to_time_str - String in format '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_19_8_30_00')
-# output_filepath - file path to save the filtered documents
-# returns count of documents within given time period
-from utils.file_utils import create_folder_if_not_exist, delete_create_folder
+def filter_documents_by_time(input_filepath: str, from_time_str: str, to_time_str: str,
+                             output_filepath: str = None) -> int:
+    """
+    Method to filter data in input file from given from_time_str to given to_time_str
 
+    parameters
+    -----------
+    :param input_filepath: .tsv file path
+        File with columns [id, timestamp, text-content, *] without column names which contains the data need to be
+        filtered.
+        The timestamp values need to be formatted as %Y-%m-%d %H:%M:%S.
+    :param from_time_str: str formatted as '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
+        The starting time to filter data.
+    :param to_time_str: str formatted as '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
+        The ending time to filter data
+    :param output_filepath: .tsv file path
+        File to save the filtered data.
+        Output format is similar to the input format.
+    :return: int
+        The number of documents/rows found within the given period.
+    """
 
-def filter_documents_by_time(input_filepath, from_time_str, to_time_str, output_filepath=None):
     input_file = open(input_filepath, encoding='utf-8')
     input_reader = csv.reader(input_file, delimiter='\t')
     n = 0
+    output_writer = None
 
     if output_filepath:
         output_file = open(output_filepath, 'a', newline='', encoding='utf-8')
@@ -38,12 +54,28 @@ def filter_documents_by_time(input_filepath, from_time_str, to_time_str, output_
     return n
 
 
-# Separate given document into set of chunks; documents correspond to time windows
-# from_time and to_time format - '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
-# time_duration - minutes
-# input and output format - [id, timestamp, text-content, *] tsv file
-# output_folder_path - folder to save stream chunks
-def filter_documents_by_time_bulk(from_time_str, to_time_str, time_duration, input_file_path, output_folder_path):
+def filter_documents_by_time_bulk(from_time_str: str, to_time_str: str, time_duration: int, input_file_path: str,
+                                  output_folder_path: str):
+    """
+    Method to separate given data in input_file_path into set of chunks(documents correspond to time windows)
+
+    parameters
+    -----------
+    :param from_time_str: str formatted as '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
+        The starting time of focused data stream.
+    :param to_time_str: str formatted as '%Y_%m_%d_%H_%M_%S' (e.g. '2019_10_20_17_30_00')
+        The ending time of focused data stream.
+    :param time_duration: int
+        Time window length in minutes.
+    :param input_file_path: .tsv file path
+        File with columns [id, timestamp, text-content, *] without column names, which contains the data need to be
+        filtered.
+        The timestamp values need to be formatted as %Y-%m-%d %H:%M:%S.
+    :param output_folder_path: folder path
+        Folder path to save output files (files of time windows)
+    :return:
+    """
+
     # delete if there already exist a folder and create new folder
     delete_create_folder(output_folder_path)
 

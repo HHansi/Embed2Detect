@@ -1,6 +1,5 @@
 # Created by Hansi at 3/16/2020
 import collections
-# save counter and return counter size(no: of distinct words)
 import os
 
 import pandas as pd
@@ -9,8 +8,18 @@ from utils.file_utils import read_text_column, get_file_name, delete_create_fold
 
 
 def save_counter(counter, filepath):
+    """
+    Method to save counter to a .tsv file
+
+    parameters
+    -----------
+    :param counter: collections.Counter
+    :param filepath: str (path to .tsc file)
+    :return: int
+        Number of elements in the counter
+    """
     with open(filepath, 'w+', encoding="utf8") as f:
-        i = 0;
+        i = 0
         for k, v in counter:
             if k.strip():
                 if k != '\"':
@@ -19,9 +28,20 @@ def save_counter(counter, filepath):
     return i
 
 
-# df - DataFrame which contains text column
-# return total word and distinct word count
 def get_word_count(df, counter_file_path):
+    """
+    Method to count token frequencies within given dataframe.
+    Used split by spaces to tokenise text.
+
+    parameters
+    -----------
+    :param df: dataframe with text column
+    :param counter_file_path: str (.tsv file path)
+        File path to save frequency details
+    :return: int, int
+        Total number of words / tokens found.
+        Number of distinct words / tokens found.
+    """
     results = list()
     df.str.lower().str.split().apply(results.extend)
 
@@ -35,8 +55,23 @@ def get_word_count(df, counter_file_path):
     return all_words, distinct_words
 
 
-# get token stats- token count, distinct token count in given data
 def generate_stats(input_folder_path, output_folder_path):
+    """
+    Generate statistical details of text in each file in the input_folder
+    As stat. details, frequency of tokens will be measured.
+
+    parameters
+    -----------
+    :param input_folder_path: str
+        Path to input data folder
+    :param output_folder_path: str
+        Path to save statistical details.
+        For each file in the input_folder, separate file with same name will be created. This file will contain the
+        distinct tokens and their frequencies.
+        Another file named 'WordCounts.tsv' will be created which contains the total number of distinct words found in
+        each time window.
+    :return:
+    """
     # delete if there already exist a folder and create new folder
     delete_create_folder(output_folder_path)
 
@@ -56,5 +91,3 @@ def generate_stats(input_folder_path, output_folder_path):
                 ignore_index=True)
 
         df_output.to_csv(output_file_path, sep='\t', mode='a', index=False, encoding='utf-8')
-
-

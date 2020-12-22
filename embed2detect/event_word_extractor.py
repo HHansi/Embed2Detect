@@ -10,8 +10,21 @@ from utils.file_utils import write_list_to_text_file, delete_create_folder
 logger = logging.getLogger(__name__)
 
 
-# n - word count (number of top words needed as event words)
-def get_event_words(event_windows, result_folder, n=None):
+def get_event_words(event_windows: list, result_folder: str, n: int = None):
+    """
+    Method to extract event related words
+
+    parameters
+    -----------
+    :param event_windows: list of EventWindow objects
+        EventWindows to identify event words
+    :param result_folder: folder path
+        Folder path to save event words correspond to each event occurred time window
+    :param n: None or int, optional
+        None does not limits the number of event words.
+        Otherwise, number of top event words need to be extracted from each window.
+    :return:
+    """
     # delete if there already exist a folder and create new folder
     delete_create_folder(result_folder)
 

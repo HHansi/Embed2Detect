@@ -25,6 +25,16 @@ puncts = [',', '.', '"', ':', ')', '(', '-', '!', '?', '|', ';', "'", '$', '&', 
 
 
 def remove_punctuations(token_list):
+    """
+    Method to remove punctuation marks in the given token list
+
+    parameters
+    -----------
+    :param token_list: list of str
+        List of tokens
+    :return: list
+        Filtered list of tokens without punctuation
+    """
     filtered_list = []
     for token in token_list:
         if token not in puncts:
@@ -32,8 +42,17 @@ def remove_punctuations(token_list):
     return filtered_list
 
 
-# Remove stop words
 def remove_stopwords(word_list):
+    """
+     Method to remove stopwords in the given token list
+
+    parameters
+    -----------
+    :param word_list: list of str
+        List of tokens
+    :return: list
+        Filtered list of tokens without stopwords
+    """
     filtered_list = []
     for word in word_list:
         if word not in en_stopwords:
@@ -42,13 +61,37 @@ def remove_stopwords(word_list):
 
 
 def remove_retweet_notations(sentence):
+    """
+    Method to remove retweet notations in the given text
+
+    parameters
+    -----------
+    :param sentence: str
+    :return: str
+        String without retweet notations
+    """
     updated_sentence = re.sub(r'^RT @[a-zA-Z]*[0-9]*:', '', sentence)
     return updated_sentence.strip()
 
 
-# tokenize text using the given tokenizer
-# return_sentence (optional) (default - False) - if True, return a string by appending the tokens using space
 def tokenize_text(tokenizer, text, return_sentence=False):
+    """
+    Method to tokenise text using given tokenizer
+
+    parameters
+    -----------
+    :param tokenizer: object
+        NLTK tokenizer
+    :param text: str
+        String which need to be tokenised
+    :param return_sentence: boolean, optional
+        Boolean to indicate the output type.
+        True - return the tokenised text as a sentence/string. Tokens are appended using spaces.
+        False - returns tokens as a list
+    :return: str or list
+        Tokenised text
+        Return type depends on the 'return_sentence' argument. Default is a list.
+    """
     if return_sentence:
         tokens = tokenizer.tokenize(text)
         output = ''
@@ -59,8 +102,16 @@ def tokenize_text(tokenizer, text, return_sentence=False):
         return tokenizer.tokenize(text)
 
 
-# remove links in the text using regex expression match
 def remove_links(sentence):
+    """
+    Method to remove links in the given text
+
+    parameters
+    -----------
+    :param sentence: str
+    :return: str
+        String without links
+    """
     updated_sentence = ''
     for token in sentence.split():
         updated_token = re.sub(r'^https?:\/\/.*[\r\n]*', '', token, flags=re.MULTILINE)
@@ -68,17 +119,35 @@ def remove_links(sentence):
     return updated_sentence.strip()
 
 
-# Remove given symbol from the text
 def remove_symbol(text, symbol):
+    """
+    Method to remove given symbol in the text. All the symbol occurrences will be replaced by "".
+
+    parameters
+    -----------
+    :param text: str
+    :param symbol: str
+        Symbol which need to be removed (e.g., '#')
+    :return: str
+        Symbol removed text
+    """
     return text.replace(symbol, "")
 
 
-# Pre-processing Flow
-# 1. Remove retweet notations (e.g. RT @abc:)
-# 2. Tokenize using TweetTokenizer without preserving case and with length reduction
-# 3. Remove links
-# 4. Remove hash symbol
 def preprocessing_flow(text):
+    """
+    Preprocessing flow defined to process text.
+    1. Remove retweet notations (e.g., RT @abc:)
+    2. Tokenize using TweetTokenizer without preserving case and with length reduction
+    3. Remove links
+    4. Remove hash symbol
+
+    parameters
+    -----------
+    :param text: str
+    :return: str
+        preprocessed text
+    """
     text = remove_retweet_notations(text)
     tknzr = TweetTokenizer(preserve_case=False, reduce_len=True, strip_handles=False)
     text = tokenize_text(tknzr, text, return_sentence=True)
@@ -87,9 +156,20 @@ def preprocessing_flow(text):
     return text
 
 
-# pre-process the text contents in given input file and save to given output file
-# output_file_path format - [ID, timestamp, text] without column names
 def preprocess_bulk(input_file_path, output_file_path):
+    """
+    Preprocess data in input_file and save to the output_file
+
+    parameters
+    -----------
+    :param input_file_path: str (.tsv file path)
+        Path to input data file
+        There should be at least 3 columns in the file corresponding to id, timestamp and text with the column names.
+    :param output_file_path: str (.tsv file path)
+        Path to output/preprocessed data file
+        Output file will be formatted as three-column ([id, timestamp, text-content]) file without column names.
+    :return:
+    """
     # create folder if not exists
     create_folder_if_not_exist(output_file_path, is_file_path=True)
 
@@ -110,10 +190,17 @@ def preprocess_bulk(input_file_path, output_file_path):
             output_writer.writerow([row[id_column_index], row[date_column_index], processed_text])
 
 
-# pre-process ground truth labels
-# input_filepath - path to file which contains ground truth labels
-# output_filepath - path to output file to save processed labels
 def preprocess_gt(input_filepath, output_filepath):
+    """
+    Preprocess ground truth data in input_file and save to the output_file
+
+    parameters
+    -----------
+    :param input_filepath: str (.txt file path)
+        Ground truth file formatted as Twitter-Event-Data-2019
+    :param output_filepath: str (.txt file path)
+    :return:
+    """
     input_file = open(input_filepath, 'r')
     output_file = open(output_filepath, 'a', encoding='utf-8')
 
@@ -144,10 +231,18 @@ def preprocess_gt(input_filepath, output_filepath):
     output_file.close()
 
 
-# pre-process set of ground truth files
-# input_folder_path - input folder which contains ground truth files
-# output_folder_path - output folder to save processed gt data
 def preprocess_gt_bulk(input_folder_path, output_folder_path):
+    """
+    Preprocess ground truth data in all files in input_folder and save to the output_folder
+
+    parameters
+    -----------
+    :param input_folder_path: str
+        Path to folder which contains GT data files
+    :param output_folder_path: str
+        Path to folder to save preprocessed GT data
+    :return:
+    """
     # delete if there already exist a folder and create new folder
     delete_create_folder(output_folder_path)
 

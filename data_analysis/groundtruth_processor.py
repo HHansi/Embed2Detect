@@ -4,7 +4,18 @@ import os
 
 
 def extract_gt_tokens(text):
-    events = []
+    """
+    Given GT string, method to extract GT labels.
+    GT string should be formatted as Twitter-Event-Data-2019.
+
+    parameters
+    -----------
+    :param text: str
+    :return: list
+        List of GT labels corresponding to a single event
+        Since there can be duplicate definitions for a single event, this list contains separate label lists for each
+        duplicate definition.
+    """
     duplicates = []
 
     for element in text.split("|"):
@@ -20,6 +31,16 @@ def extract_gt_tokens(text):
 
 
 def load_gt(folder_path):
+    """
+    Method to read GT data into a dictionary formatted as (time-window: labels)
+
+    parameters
+    -----------
+    :param folder_path: str
+        Path to folder which contains GT data
+    :return: object
+        Dictionary of GT data
+    """
     gt = dict()
     for root, dirs, files in os.walk(folder_path):
         for file in files:
@@ -35,6 +56,15 @@ def load_gt(folder_path):
 
 
 def generate_gt_string(tokens):
+    """
+    Given a list of GT labels corresponding to a single event, convert them to a string formatted according to
+    Twitter-Event-Data-2019 GT format.
+
+    parameters
+    -----------
+    :param tokens: list
+    :return: str
+    """
     str = ""
     for duplicate in tokens:
         if str and str[-1] == "]":
@@ -50,8 +80,17 @@ def generate_gt_string(tokens):
     return str
 
 
-# combine multiple events available at a time frame into single event
 def get_combined_gt(gt):
+    """
+    Combine the GT labels of multiple events available at a time frame into single event representation.
+
+    parameters
+    -----------
+    :param gt: object
+        Dictionary of GT returned by load_GT
+    :return: object
+        Dictionary of combined GT
+    """
     combined_gt = dict()
     for time_frame in gt.keys():
         gt_events = gt[time_frame]
