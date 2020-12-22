@@ -37,7 +37,8 @@ def get_event_words(event_windows: list, result_folder: str, n: int = None):
         word_list = get_sorted_matrix_labels(vocab, np.asarray(diff_ut_matrix), descending=True,
                                              non_zeros_only=True)
 
-        if n:
+        # Ignore filtering if n is found as a boolean
+        if n and not isinstance(n, bool):
             event_words = word_list[:n]
         else:
             event_words = word_list
