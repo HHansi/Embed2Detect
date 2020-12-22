@@ -227,9 +227,7 @@ gen
 resources
 # ignore results
 results
-
 # ignore data sets
-data/BrexitVote/data-7_30-17_30.tsv
-data/MUNLIV/dataset-15.15-17.30-without-na.tsv
-/data/BrexitVote/time-frames/
-/data/MUNLIV/time-frames-min2/
+/data/
+# ignore GT data
+/experiments/twitter_event_data_2019/gt_data/
