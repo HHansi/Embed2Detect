@@ -13,14 +13,24 @@ class Matched_Event:
         self.event_FP = event_FP  # total of false positives
 
 
-# find best cluster match wrt given event (event can have duplicate tokens separated by OR)
-# cluster - list of words belong to a cluster
-# groundtruth_event - ground truth tokens corrresponds to an event
-# exact_match - if True match clutser word with gt label exactly, else consider words with edit distance less than
-# 2 as matches
-# cluster_n - if given, only consider top n words in the cluster
-# return Matched_Event
-def fine_best_cluster_match(cluster, groundtruth_event, exact_match=None, cluster_n=None):
+def fine_best_cluster_match(cluster, groundtruth_event, exact_match=True, cluster_n=None):
+    """
+    Find best cluster match wrt given event (event can have duplicate tokens separated by OR)
+
+    parameters
+    -----------
+    :param cluster: list
+        List of words belong to a cluster
+    :param groundtruth_event: list
+        Ground truth tokens correspond to an event
+    :param exact_match: boolean, optional
+        True- exact match between cluster word and gt label
+        False- match if edit distance between cluster word and gt label is less than 2
+    :param cluster_n: None or int, optional
+        If given, only consider top n words in the cluster.
+    :return: object
+        Matched_Event
+    """
     # if cluster_n is mentioned, prune cluster to only consider top n words
     if cluster_n and len(cluster) > cluster_n:
         cluster = cluster[:cluster_n]
@@ -103,9 +113,19 @@ def fine_best_cluster_match(cluster, groundtruth_event, exact_match=None, cluste
     return matched_event
 
 
-# method to count words in matched labels; [[label1,label2][label3]]
-# split_space - if True, split sub_labels by space and count as seperate labels
 def count_matched_labels(matched_labels, split_space=False):
+    """
+    Method to count words in matched event words
+
+    parameters
+    -----------
+    :param matched_labels: list
+        e.g., [[label1,label2][label3]]
+    :param split_space: boolean, optional
+        Boolean to indicate whether the words need to be split and count separately
+    :return: int
+        Word count
+    """
     n = 0
     for label in matched_labels:
         for sub_label in label:
@@ -117,11 +137,32 @@ def count_matched_labels(matched_labels, split_space=False):
     return n
 
 
-# Measure best true positive value for all clusters wtr to all events
-# exact_match - if True match clutser word with gt label exactly, else consider words with edit distance less than
-# 2 as matches
-# return total_n-total GT labels, total_TP, total_FP, matched_events - dictionary of (cluster_key:Matched_Event)
-def eval_clusters(clusters, groundtruth, exact_match=None, cluster_n=None, keep_cluster_duplicates=False):
+def eval_clusters(clusters, groundtruth, exact_match=True, cluster_n=None, keep_cluster_duplicates=False):
+    """
+    Evaluate word clusters with ground truth
+
+    parameters
+    -----------
+    :param clusters: dictionary
+        Dictionary of clusters (cluster_key: list of cluster words)
+    :param groundtruth: object
+        Ground truth corresponds to the cluster generated time window
+    :param exact_match: boolean, optional
+        Boolean to indicate match type.
+        True - exact match
+        False - match if edit distance < 2
+    :param cluster_n: None or int, optional
+        If given, only consider top n words in the cluster.
+    :param keep_cluster_duplicates: boolean, optional
+        Indicate the allowance to match same cluster with different events
+    :return: int, int, int, object
+        Total GT labels
+        Total true positives
+        Total false positives
+        Dictionary of Matched_Events
+            If keep_cluster_duplicates=False, cluster_key will be used as key in dictionary.
+            Otherwise, a increasing number will be assigned as the key.
+    """
     total_TP = 0
     total_FP = 0
     total_n = 0

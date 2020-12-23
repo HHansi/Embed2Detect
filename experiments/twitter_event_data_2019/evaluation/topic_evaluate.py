@@ -3,6 +3,11 @@ from experiments.twitter_event_data_2019.evaluation.keyword_evaluate import eval
 
 
 def get_total_event_count(dict_groundtruth):
+    """
+    :param dict_groundtruth: dictionary
+    :return: int
+        Number of events
+    """
     n = 0
     for time_frame in dict_groundtruth.keys():
         n += len(dict_groundtruth[time_frame])
@@ -13,10 +18,37 @@ def get_total_time_frame_count(dict_groundtruth):
     return len(dict_groundtruth.keys())
 
 
-# coverage_percentage (optional) - default: 1 or 100%
-# coverage_n (optional) - default: full coverage or match all labels in the GT
-def get_topic_measures(dict_clusters, dict_groundtruth, exact_match=None, cluster_n=None, coverage_percentage=None,
+def get_topic_measures(dict_clusters, dict_groundtruth, exact_match=True, cluster_n=None, coverage_percentage=None,
                        coverage_n=None, keep_cluster_duplicates=False):
+    """
+    Compute topic-based evaluation measures.
+
+    parameters
+    -----------
+    :param dict_clusters: object
+        Dictionary of clusters (time window: (cluster key: cluster words))
+    :param dict_groundtruth: object
+        Dictionary of GT data (time window: GT data)
+    :param exact_match: boolean, optional
+        Boolean to indicate match type.
+        True - exact match
+        False - match if edit distance < 2
+    :param cluster_n: None or int, optional
+        If given, only consider top n words in the cluster.
+    :param coverage_percentage: None or float, optional
+        Percentage of GT labels need to be covered by a cluster to consider it as a match.
+    :param coverage_n: None or int, optional
+        Number of GT labels need to be contained in a cluster to consider it as a match.
+        Given a coverage_percentage, coverage_n will be ignored.
+        If no coverage_percentage or coverage_n is given, 100% coverage will be considered for a match.
+    :param keep_cluster_duplicates: boolean, optional
+        Indicate the allowance to match same cluster with different events
+    :return: int, int, int, object
+        Total time windows
+        Total true positives
+        Total false positives
+        Dictionary of time_window:[Total GT events, TP, FP]
+    """
     total_tp = 0
     total_fp = 0
     total_n = get_total_time_frame_count(dict_groundtruth)
