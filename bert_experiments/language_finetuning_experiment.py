@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -7,6 +8,9 @@ import torch
 from bert_experiments.transformers.args.args import TEMP_DIRECTORY, SUBMISSION_FOLDER, LANGUAGE_FINETUNE, MODEL_TYPE, \
     MODEL_NAME, language_modeling_args, SEED, TRAINING_DATA_PATH, colnames
 from bert_experiments.transformers.language_modeling.language_modeling_model import LanguageModelingModel
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 torch.manual_seed(SEED)
 torch.cuda.manual_seed(SEED)
@@ -23,7 +27,8 @@ start_time = time.time()
 if LANGUAGE_FINETUNE:
     train_list = train['text'].tolist()
     complete_list = train_list
-    print('train size: ', len(complete_list))
+    logger.info(f'train size: {len(complete_list)}')
+    # print('train size: ', len(complete_list))
 
     lm_train = complete_list[0: int(len(complete_list) * 0.8)]
     lm_test = complete_list[-int(len(complete_list) * 0.2):]
@@ -41,8 +46,10 @@ if LANGUAGE_FINETUNE:
     model.train_model(os.path.join(TEMP_DIRECTORY, "lm_train.txt"),
                       eval_file=os.path.join(TEMP_DIRECTORY, "lm_test.txt"))
     temp_end_time = time.time()
-    print('Completed learning in ', int(temp_end_time - temp_start_time), ' seconds')
+    # print('Completed learning in ', int(temp_end_time - temp_start_time), ' seconds')
+    logger.info(f'Completed learning in {int(temp_end_time - temp_start_time)} seconds')
     MODEL_NAME = language_modeling_args["best_model_dir"]
 
 end_time = time.time()
-print('Completed LM in ', int(end_time - start_time), ' seconds')
+# print('Completed LM in ', int(end_time - start_time), ' seconds')
+logger.info(f'Completed LM in {int(end_time - start_time)} seconds')
