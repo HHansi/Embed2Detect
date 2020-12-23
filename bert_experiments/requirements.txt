@@ -1,4 +1,5 @@
 tokenizers==0.8.1rc1
 transformers==3.0.2
+tensorboardX==2.1
 torch==1.5.1+cpu
 flair==0.4.5

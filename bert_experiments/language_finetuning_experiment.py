@@ -28,7 +28,6 @@ if LANGUAGE_FINETUNE:
     train_list = train['text'].tolist()
     complete_list = train_list
     logger.info(f'train size: {len(complete_list)}')
-    # print('train size: ', len(complete_list))
 
     lm_train = complete_list[0: int(len(complete_list) * 0.8)]
     lm_test = complete_list[-int(len(complete_list) * 0.2):]
@@ -46,10 +45,8 @@ if LANGUAGE_FINETUNE:
     model.train_model(os.path.join(TEMP_DIRECTORY, "lm_train.txt"),
                       eval_file=os.path.join(TEMP_DIRECTORY, "lm_test.txt"))
     temp_end_time = time.time()
-    # print('Completed learning in ', int(temp_end_time - temp_start_time), ' seconds')
     logger.info(f'Completed learning in {int(temp_end_time - temp_start_time)} seconds')
     MODEL_NAME = language_modeling_args["best_model_dir"]
 
 end_time = time.time()
-# print('Completed LM in ', int(end_time - start_time), ' seconds')
 logger.info(f'Completed LM in {int(end_time - start_time)} seconds')

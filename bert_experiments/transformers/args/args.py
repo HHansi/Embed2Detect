@@ -2,7 +2,7 @@ from multiprocessing import cpu_count
 
 # Input data
 colnames = ['Id', 'Time', 'Text', 'Hashtag', 'Location']
-TRAINING_DATA_PATH = ""
+TRAINING_DATA_PATH = '../data/munliv/preprocessed-without_tokenisation/2019_10_20_16_06.tsv'
 
 TEMP_DIRECTORY = "temp/data"
 TRAIN_FILE = "train.tsv"
@@ -17,12 +17,6 @@ MODEL_TYPE = "bert"
 MODEL_NAME = "bert-base-uncased"
 LANGUAGE_FINETUNE = True
 SEED = 777
-PREPROCESS_TYPE = "normal"
-PREPROCESS_WITH_NE = False
-
-N_CLASSES = 2
-INCLUDE_RAW_PREDICTIONS = True
-TAG_RAW = "raw"
 
 args = {
     'output_dir': 'temp/outputs/',
