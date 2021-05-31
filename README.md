@@ -1,8 +1,6 @@
 # Embed2Detect
-Embed2Detect is an event detection mechanism developed for social media data. More details about this system can be 
-found from the reference paper <strong>"[Embed2Detect: Temporally Clustered Embedded Words for Event Detection in Social Media](http://arxiv.org/abs/2006.05908)"</strong> 
-which is under review. <br>
-If you use this software, please cite the below reference.
+Embed2Detect is an event detection mechanism developed for social media data. Please refer to the paper <strong>"[Embed2Detect: Temporally Clustered Embedded Words for Event Detection in Social Media](https://link.springer.com/article/10.1007/s10994-021-05988-7)"</strong> for more details about this approach. <br>
+If you use this system, please consider citing this paper and reference details are given below. 
 
 ### About
 Python 3.7 implementation of Embed2Detect <br>
@@ -45,12 +43,13 @@ default - 'max'
 
 ### Reference
 ```
-@article{Hettiarachchi2020Embed2DetectTC,
-  title={Embed2Detect: Temporally Clustered Embedded Words for Event Detection in Social Media},
-  author={Hansi Hettiarachchi and Mariam Adedoyin-Olowe and Jagdev Bhogal and Mohamed Medhat Gaber},
-  journal={ArXiv},
-  year={2020},
-  volume={abs/2006.05908}
+@article{hettiarachchi2021embed2detect,
+  title={Embed2Detect: Temporally clustered embedded words for event detection in social media},
+  author={Hettiarachchi, Hansi and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
+  journal={Machine Learning},
+  pages={1--39},
+  year={2021},
+  publisher={Springer}
 }
 ```
 
