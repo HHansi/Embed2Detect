@@ -44,12 +44,14 @@ default - 'max'
 ### Reference
 ```
 @article{hettiarachchi2021embed2detect,
-  title={Embed2Detect: Temporally clustered embedded words for event detection in social media},
+  title={{E}mbed2{D}etect: Temporally clustered embedded words for event detection in social media},
   author={Hettiarachchi, Hansi and Adedoyin-Olowe, Mariam and Bhogal, Jagdev and Gaber, Mohamed Medhat},
   journal={Machine Learning},
   pages={1--39},
   year={2021},
-  publisher={Springer}
+  publisher={Springer},
+  doi = {10.1007/s10994-021-05988-75},
+  url = "https://doi.org/10.1007/s10994-021-05988-7",
 }
 ```
 
